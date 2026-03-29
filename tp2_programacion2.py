@@ -63,14 +63,45 @@ def ejercicio1():
     else:
         print("Producto más vendido:", productoMasVendido)
 
+#descomentar para probar el ejercicio 1
 #ejercicio1()
 
-""" 2) Realizar un algoritmo que permita saber si una palabra que pertenece a un 
-oración ingresada es un palíndromo o no, en caso afirmativo debe contar la 
-cantidad de palíndromos encontrados en dicha oración. El algoritmo termina 
-una vez que la cadena ingresada es un #. Al finalizar, debe informar la 
-cantidad de palabras palíndromos que encontró. 
+""" 
+2) Realizar un algoritmo que permita saber si una palabra que pertenece a un oración ingresada es un palíndromo o no, 
+en caso afirmativo debe contar la cantidad de palíndromos encontrados en dicha oración. El algoritmo termina 
+una vez que la cadena ingresada es un #. Al finalizar, debe informar la cantidad de palabras palíndromos que encontró. 
 Una vez que tiene el algoritmo, codificarlo en Python. 
+"""
+
+def ejercicio2():
+    oracion = input("Ingrese una oracion o # para terminar: ")
+    cantidadDePalindromos = 0
+
+    while oracion != "#":
+        palabras = oracion.split()
+        for palabra in palabras:
+            palabra = palabra.lower().strip(".,;:!?")
+            if palabra != "" and esPalindromo(palabra):
+                print(f"La palabra '{palabra}' es palindromo")
+                cantidadDePalindromos += 1
+        oracion = input("Ingrese una oracion o # para terminar: ")
+    print("Cantidad de palindromos encontrados:", cantidadDePalindromos)
+
+def esPalindromo(palabra):
+    i = 0
+    j = len(palabra) - 1
+
+    while i < j:
+        if palabra[i] != palabra[j]:
+            return False
+        i += 1
+        j -= 1
+    return True
+
+#descomentar para probar el ejercicio 2
+#ejercicio2()
+
+""""
 3) 
 Realizar un algoritmo que permite contar la cantidad de 
 frecuencias/ocurrencias de una palabra. Se debe tener en cuenta que se debe 
