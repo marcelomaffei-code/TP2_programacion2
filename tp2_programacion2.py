@@ -13,10 +13,11 @@ condicionales y cambio de variable.
 
 1) Realizar un algoritmo que permita registrar las ventas diarias de un comercio. El sistema debe procesar múltiples registros de ventas 
 hasta que el usuario ingrese el código de venta FIN.
-    • Cada registro de venta debe contener:
+Cada registro de venta debe contener:
     • Código de producto (ej: "FQ-1200", "RQ-0001")
     • Cantidad vendida (número entero positivo)
     • Precio unitario (número decimal positivo)
+
 Al finalizar el ingreso de datos (cuando se ingrese FIN), debe informar:
     • La cantidad total de productos vendidos.
     • El monto total recaudado.
@@ -25,7 +26,44 @@ Al finalizar el ingreso de datos (cuando se ingrese FIN), debe informar:
 Una vez que tiene el algoritmo, codificarlo en Python. 
  """
 
+def ejercicio1():
+    totalProductosVendidos = 0
+    montoTotal = 0
+    transaccionesCont = 0
+    productoMasVendido = ""
+    maxCantidadVendida = 0
 
+    codigoDeProducto = input("Ingrese código de producto (o 'FIN' para terminar): ")
+
+    while codigoDeProducto != "FIN":
+        
+        cantidadVendida = int(input("Cantidad vendida: "))
+        while cantidadVendida <= 0:
+            cantidadVendida = int(input("Error. Ingrese cantidad positiva: "))
+
+        precioUnitario = float(input("Precio unitario: "))
+        while precioUnitario <= 0:
+            precioUnitario = float(input("Error. Ingrese precio positivo: "))
+
+        totalProductosVendidos += cantidadVendida
+        montoTotal += cantidadVendida * precioUnitario
+        transaccionesCont += 1
+
+        if cantidadVendida > maxCantidadVendida:
+            maxCantidadVendida = cantidadVendida
+            productoMasVendido = codigoDeProducto
+
+        codigoDeProducto = input("Ingrese código de producto (o 'FIN' para terminar): ")
+
+    print("Total productos:", totalProductosVendidos)
+    print("Total dinero:", montoTotal)
+    print("Transacciones:", transaccionesCont)
+    if transaccionesCont == 0:
+        print("No se registraron ventas")
+    else:
+        print("Producto más vendido:", productoMasVendido)
+
+#ejercicio1()
 
 """ 2) Realizar un algoritmo que permita saber si una palabra que pertenece a un 
 oración ingresada es un palíndromo o no, en caso afirmativo debe contar la 
