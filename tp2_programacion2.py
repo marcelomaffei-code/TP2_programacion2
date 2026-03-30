@@ -101,39 +101,72 @@ def esPalindromo(palabra):
 #descomentar para probar el ejercicio 2
 #ejercicio2()
 
-""""
+""" ------------------------------------------------------------------------
 3) 
-Realizar un algoritmo que permite contar la cantidad de 
-frecuencias/ocurrencias de una palabra. Se debe tener en cuenta que se debe 
+Realizar un algoritmo que permite contar la cantidad de frecuencias/ocurrencias de una palabra. Se debe tener en cuenta que se debe 
 contabilizar la cantidad de veces que aparece dicha palabra en una oración. 
-Teniendo en cuenta que una oración inicia con una letra A-Z|a-z y termina con 
-".". El algoritmo termina cuando la oración finaliza con '#'. Al finalizar, debe 
-informar la cantidad de veces que aparece dicha palabra. 
-Una vez que tiene el algoritmo, codificarlo en Python. 
-4) Realizar un algoritmo que permite adivinar la palabra ingresada a partir de 
-un conjunto de caracteres disponibles. Una vez que adivina la palabra 
+Teniendo en cuenta que una oración inicia con una letra A-Z|a-z y termina con ".". El algoritmo termina cuando la oración finaliza con '#'. 
+Al finalizar, debe informar la cantidad de veces que aparece dicha palabra. Una vez que tiene el algoritmo, codificarlo en Python. 
+"""
+
+def ejercicio3():
+    palabraBuscada = input("Ingrese la palabra a buscar: ").strip().lower()
+    while not palabraBuscada:
+        palabraBuscada = input("Error. Ingrese una palabra válida: ").strip().lower()
+
+    total = 0 
+    oracion = input("Ingrese una oración o '#' para terminar: ")
+
+    while oracion != "#":
+        if oracion and oracion[0].isalpha() and oracion[-1] == ".":
+            oracion = oracion[:-1]  # quitar punto final
+            palabras = oracion.split()
+
+            for palabra in palabras:
+                palabra = palabra.lower().strip(".,;:!?")  # limpiar signos
+                if palabra == palabraBuscada:
+                    total += 1
+        else:
+            print("Error. La oración debe iniciar con una letra y terminar con un punto.")
+        oracion = input("Ingrese una oración (o '#' para terminar): ")
+    print(f"\nLa palabra '{palabraBuscada}' aparece {total} veces en total.")
+
+#descomentar para probar el ejercicio 2
+ejercicio3()
+
+"""
+4) Realizar un algoritmo que permite adivinar la palabra ingresada a partir de un conjunto de caracteres disponibles. Una vez que adivina la palabra 
 ingresada debe salir del programa y avisar cuanto tardo en adivinarla.  
 Por ejemplo: 
-El usuario ingresa la palabra = claseDeUdemm 
-El algoritmo debe estar procesando las combinaciones con los caracteres 
-disponibles hasta poder adivinar la palabra ingresada. La restricción es que 
-no es posible recorrer la palabra ingresada solo poder utilizar el operador de 
-igualdad. 
-nota: para poder tomar tiempo puede usar el módulo time.  
-Una vez que tiene el algoritmo, codificarlo en Python. 
-Explicar si es posible implementar dicha solución con las limitaciones del TP. y 
-¿cuál cree que es el problema al cual se enfrenta? 
-5) Realizar un algoritmo que permita saber de cuántas maneras diferentes se 
-podría combinar una cantidad de lanas de un juego de ocho. Para poder 
-realizar el algoritmo debe tener en cuenta el cálculo factorial del número de 
-f
-ichas del juego y debe ser realizado de forma iterativa sí o sí. 
-Ejemplo, refresh numero factorial: 
-Pensamos en una sola combinación donde tengo un cajón con 5 lanas: - Cuando tomamos la primera, nos quedan 4 para elegir - Cuando tomamos la segunda, nos quedan 3 para elegir - Cuando tomamos la tercera, nos quedan 2 para elegir - Cuando tomamos la cuarta, nos queda 1 para elegir 
-Entonces, las combinaciones posibles: 5 x 4 x 3 x 2 x 4 1. => 5! = 120 
-El factorial de cero es = 1 
-Una vez que tiene el algoritmo, codificarlo en Python. 
-6) En una empresa que se encuentra estudiando una mejor prestación de 
+    El usuario ingresa la palabra = claseDeUdemm
+    El algoritmo debe estar procesando las combinaciones con los caracteres disponibles hasta poder adivinar la palabra ingresada. La restricción es
+    que no es posible recorrer la palabra ingresada solo poder utilizar el operador de igualdad.
+    nota: para poder tomar tiempo puede usar el módulo time.
+    Una vez que tiene el algoritmo, codificarlo en Python.
+    Explicar si es posible implementar dicha solución con las limitaciones del TP. y
+    ¿cuál cree que es el problema al cual se enfrenta?
+"""
+
+
+
+"""
+5) Realizar un algoritmo que permita saber de cuántas maneras diferentes se
+podría combinar una cantidad de lanas de un juego de ocho. Para poder
+realizar el algoritmo debe tener en cuenta el cálculo factorial del número de
+fichas del juego y debe ser realizado de forma iterativa sí o sí.
+Ejemplo, refresh numero factorial:
+Pensamos en una sola combinación donde tengo un cajón con 5 lanas: - Cuando tomamos la primera, nos quedan 4 para elegir 
+- Cuando tomamos la segunda, nos quedan 3 para elegir - Cuando tomamos la tercera, nos quedan 2 para elegir - Cuando tomamos 
+la cuarta, nos queda 1 para elegir
+Entonces, las combinaciones posibles: 5 x 4 x 3 x 2 x 1. => 5! = 120
+El factorial de cero es = 1
+Una vez que tiene el algoritmo, codificarlo en Python.
+"""
+
+
+
+"""
+6) En una empresa que se encuentra estudiando una mejor prestación de
 vuelo de drones, está trabajando en un estudio para determinar el 
 posicionamiento óptimo de drones estático y dinámico en un área 
 determinada, para minimizar el costo y maximizar la cobertura. Los drones 
@@ -156,16 +189,24 @@ cualquier ubicación arbitraria en el área x e y. También tener en cuenta que
 pueden probar la localización de una posición (x, y, h) en la que un dron 
 podría estar. 
 Una vez que tiene el algoritmo, codificarlo en Python. 
-7)  Realizar un algoritmo que permite generar anagramas. El usuario ingresa 
-un conjunto de letras y con su longitud debería generar una cantidad finita de 
-combinaciones compuesta por las letras que componen la palabra ingresada. 
-Al finalizar, debe imprimir la cantidad de anagramas posible y el total 
-generado. 
-Nota: para poder realizarlo es necesario utilizar el concepto de factorial. 
-Una vez que tiene el algoritmo, codificarlo en Python. 
-Fuente:  https://es.wikipedia.org/wiki/Anagrama 
+"""
+
+
+
+"""
+7)  Realizar un algoritmo que permite generar anagramas. El usuario ingresa
+un conjunto de letras y con su longitud debería generar una cantidad finita de
+combinaciones compuesta por las letras que componen la palabra ingresada.
+Al finalizar, debe imprimir la cantidad de anagramas posible y el total
+generado.
+Nota: para poder realizarlo es necesario utilizar el concepto de factorial.
+Una vez que tiene el algoritmo, codificarlo en Python.
+Fuente:  https://es.wikipedia.org/wiki/Anagrama
 Explicar si es posible implementar dicha solución con las limitaciones del TP. y 
 ¿cuál cree que es el problema al cual se enfrenta? 
+"""
+
+"""
 8)  
 Eres responsable de digitalizar los registros manuales de un pequeño 
 comercio. Debes crear un script en Python que permita al usuario ingresar los 
@@ -183,6 +224,10 @@ pedirlo nuevamente sin avanzar al siguiente ticket.
 Al finalizar, imprimir un resumen con:  El monto total acumulado de todas las 
 compras. 
 Una vez que tiene el algoritmo, codificarlo en Python. 
+"""
+
+
+"""
 9)  
 En una compañía que se dedica a la gestión de portfolios de inversiones están 
 realizando una actualización de sus sistemas y necesita generar lotes de 
@@ -251,4 +296,4 @@ APA vigentes, asegurando que las referencias sean verificables y estén
 correctamente formateadas. 
 Se tendrá en cuenta también: 
 ●  Coherencia y estructura de lo que entregue. 
-●  Originalidad de la redacción, """
+●  Originalidad de la redacción,  """
