@@ -206,21 +206,34 @@ def ejercicio4():
         print("No se pudo encontrar la palabra con los caracteres disponibles.")
 
 #descomentar para probar el ejercicio 4
-ejercicio4()
+#ejercicio4()
 
 """
-5) Realizar un algoritmo que permita saber de cuántas maneras diferentes se podría combinar una cantidad de lanas de un juego de ocho. Para poder
-realizar el algoritmo debe tener en cuenta el cálculo factorial del número de fichas del juego y debe ser realizado de forma iterativa sí o sí.
+5) Realizar un algoritmo que permita saber de cuántas maneras diferentes se podría combinar una cantidad de lanas de un juego de ocho. 
+Para poder realizar el algoritmo debe tener en cuenta el cálculo factorial del número de fichas del juego y debe ser realizado de forma iterativa sí o sí.
 Ejemplo, refresh numero factorial:
-    Pensamos en una sola combinación donde tengo un cajón con 5 lanas: - Cuando tomamos la primera, nos quedan 4 para elegir 
-- Cuando tomamos la segunda, nos quedan 3 para elegir - Cuando tomamos la tercera, nos quedan 2 para elegir - Cuando tomamos 
-la cuarta, nos queda 1 para elegir
+Pensamos en una sola combinación donde tengo un cajón con 5 lanas: 
+    - Cuando tomamos la primera, nos quedan 4 para elegir 
+    - Cuando tomamos la segunda, nos quedan 3 para elegir 
+    - Cuando tomamos la tercera, nos quedan 2 para elegir 
+    - Cuando tomamos la cuarta, nos queda 1 para elegir
+
 Entonces, las combinaciones posibles: 5 x 4 x 3 x 2 x 1. => 5! = 120
 El factorial de cero es = 1
 Una vez que tiene el algoritmo, codificarlo en Python.
 """
 
+def ejercicio5():
+    n = int(input("Ingrese la cantidad de fichas: "))
+    factorial = 1
+    for i in range(1, n + 1):
+        factorial *= i
 
+    print(f"El factorial de {n} es: {factorial}")
+    print(f"Cantidad de combinaciones posibles: {factorial}")
+
+#descomentar para probar el ejercicio 5
+ejercicio5()
 
 """
 6) En una empresa que se encuentra estudiando una mejor prestación de
