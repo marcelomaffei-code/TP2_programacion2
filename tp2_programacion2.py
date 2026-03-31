@@ -111,51 +111,108 @@ Al finalizar, debe informar la cantidad de veces que aparece dicha palabra. Una 
 
 def ejercicio3():
     palabraBuscada = input("Ingrese la palabra a buscar: ").strip().lower()
+    
     while not palabraBuscada:
         palabraBuscada = input("Error. Ingrese una palabra válida: ").strip().lower()
 
-    total = 0 
+    total = 0
     oracion = input("Ingrese una oración o '#' para terminar: ")
 
-    while oracion != "#":
-        if oracion and oracion[0].isalpha() and oracion[-1] == ".":
-            oracion = oracion[:-1]  # quitar punto final
-            palabras = oracion.split()
+    while oracion.strip() != "#":
+        oracion = oracion.strip()
+
+        if oracion and oracion[0].isalpha() and oracion.endswith("."):
+            oracion_limpia = oracion.rstrip(".")
+            palabras = oracion_limpia.split()
 
             for palabra in palabras:
-                palabra = palabra.lower().strip(".,;:!?")  # limpiar signos
+                palabra = palabra.lower().strip(".,;:!?¡¿\"'")
                 if palabra == palabraBuscada:
                     total += 1
         else:
             print("Error. La oración debe iniciar con una letra y terminar con un punto.")
+
         oracion = input("Ingrese una oración (o '#' para terminar): ")
+
     print(f"\nLa palabra '{palabraBuscada}' aparece {total} veces en total.")
 
-#descomentar para probar el ejercicio 2
-ejercicio3()
+#descomentar para probar el ejercicio 3
+#ejercicio3()
 
 """
 4) Realizar un algoritmo que permite adivinar la palabra ingresada a partir de un conjunto de caracteres disponibles. Una vez que adivina la palabra 
 ingresada debe salir del programa y avisar cuanto tardo en adivinarla.  
+
 Por ejemplo: 
+
     El usuario ingresa la palabra = claseDeUdemm
-    El algoritmo debe estar procesando las combinaciones con los caracteres disponibles hasta poder adivinar la palabra ingresada. La restricción es
+
+    El algoritmo debe estar procesando las combinaciones con los caracteres 
+    disponibles hasta poder adivinar la palabra ingresada. La restricción es
     que no es posible recorrer la palabra ingresada solo poder utilizar el operador de igualdad.
+
     nota: para poder tomar tiempo puede usar el módulo time.
+
     Una vez que tiene el algoritmo, codificarlo en Python.
-    Explicar si es posible implementar dicha solución con las limitaciones del TP. y
-    ¿cuál cree que es el problema al cual se enfrenta?
+
+Explicar si es posible implementar dicha solución con las limitaciones del TP. y
+¿cuál cree que es el problema al cual se enfrenta?
 """
 
+def ejercicio4():
+    import time
+    
+    palabraAdivinar = input("Ingrese la palabra a adivinar: ")
+    caracteres = "abcdefghijklmnopqrstuvwxyz"
+    intento = ""
+    encontrado = False
+    inicioTiempo = time.time()
 
+    indices = [0] * 20
+    longitudActual = 1
+
+    print("Procesando... por favor espere.")
+    while not encontrado:
+        intento = ""
+        for i in range(longitudActual):
+            intento += caracteres[indices[i]]
+        print(intento)
+
+        if intento == palabraAdivinar:
+            encontrado = True
+        else:
+            pos = 0
+            incrementar = True
+            while incrementar and pos < longitudActual:
+                indices[pos] += 1
+                if indices[pos] < len(caracteres):
+                    incrementar = False
+                else:
+                    indices[pos] = 0
+                    pos += 1
+            
+            if incrementar:
+                longitudActual += 1
+                if longitudActual > len(palabraAdivinar):
+                    encontrado = True 
+
+    finTiempo = time.time()
+    tiempo_total = finTiempo - inicioTiempo
+
+    if intento == palabraAdivinar:
+        print(f"¡Palabra adivinada!: {intento}")
+        print(f"Tiempo tardado: {tiempo_total:.2f} segundos.")
+    else:
+        print("No se pudo encontrar la palabra con los caracteres disponibles.")
+
+#descomentar para probar el ejercicio 4
+ejercicio4()
 
 """
-5) Realizar un algoritmo que permita saber de cuántas maneras diferentes se
-podría combinar una cantidad de lanas de un juego de ocho. Para poder
-realizar el algoritmo debe tener en cuenta el cálculo factorial del número de
-fichas del juego y debe ser realizado de forma iterativa sí o sí.
+5) Realizar un algoritmo que permita saber de cuántas maneras diferentes se podría combinar una cantidad de lanas de un juego de ocho. Para poder
+realizar el algoritmo debe tener en cuenta el cálculo factorial del número de fichas del juego y debe ser realizado de forma iterativa sí o sí.
 Ejemplo, refresh numero factorial:
-Pensamos en una sola combinación donde tengo un cajón con 5 lanas: - Cuando tomamos la primera, nos quedan 4 para elegir 
+    Pensamos en una sola combinación donde tengo un cajón con 5 lanas: - Cuando tomamos la primera, nos quedan 4 para elegir 
 - Cuando tomamos la segunda, nos quedan 3 para elegir - Cuando tomamos la tercera, nos quedan 2 para elegir - Cuando tomamos 
 la cuarta, nos queda 1 para elegir
 Entonces, las combinaciones posibles: 5 x 4 x 3 x 2 x 1. => 5! = 120
