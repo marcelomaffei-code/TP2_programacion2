@@ -224,8 +224,13 @@ Una vez que tiene el algoritmo, codificarlo en Python.
 """
 
 def ejercicio5():
-    n = int(input("Ingrese la cantidad de fichas: "))
+    n = int(input("ingrese la cantidad de fichas: "))
+
+    while n < 0:
+        n = int(input("Error!!! Ingrese un numero valido >= 0: "))
+
     factorial = 1
+
     for i in range(1, n + 1):
         factorial *= i
 
@@ -233,137 +238,279 @@ def ejercicio5():
     print(f"Cantidad de combinaciones posibles: {factorial}")
 
 #descomentar para probar el ejercicio 5
-ejercicio5()
+#ejercicio5()
 
 """
-6) En una empresa que se encuentra estudiando una mejor prestación de
-vuelo de drones, está trabajando en un estudio para determinar el 
-posicionamiento óptimo de drones estático y dinámico en un área 
-determinada, para minimizar el costo y maximizar la cobertura. Los drones 
-tienen una altitud máxima y mínima de observación. Además, la altura es 
-directamente proporcional al tamaño del área observada, a medida que 
-aumenta la altura, también lo hace el área observada, así como la energía 
-consumida. Nos piden elaborar un programa que permita cargar datos y 
-evaluar las distancias, relacionada a la ubicación estática de los drones. 
-Dron puede volar a una altura máxima de hmax y una altura mínima de hmin, 
-también tiene un área de interés con longitud x y ancho y, que representa el 
-área de interés. 
-Entonces, para determinar la distancia entre dos puntos en el espacio nos 
-ofrece la siguiente fórmula: 
+6) En una empresa que se encuentra estudiando una mejor prestación de vuelo de drones, está trabajando en un estudio para determinar el posicionamiento óptimo de drones estático y dinámico en un área 
+determinada, para minimizar el costo y maximizar la cobertura. Los drones tienen una altitud máxima y mínima de observación. Además, la altura es directamente proporcional al tamaño del área observada, a medida que aumenta la altura, también lo hace el área observada, así como la energía consumida. Nos piden elaborar un programa que permita cargar datos y evaluar las distancias, relacionada a la ubicación estática de los drones. 
+
+Dron puede volar a una altura máxima de hmax y una altura mínima de hmin, también tiene un área de interés con longitud x y ancho y, que representa el área de interés. 
+
+Entonces, para determinar la distancia entre dos puntos en el espacio nos ofrece la siguiente fórmula: 
 Para un h = 0 sería: 
-Nos piden que el programa en esta primera etapa permita, ingresar los 
-valores de de x,y,z y permita calcular las distancia e informar el resultado. El 
-programa termina cuando todos los valores son -1. 
-Por lo tanto, necesitan poder calcular diferentes valores, para probar 
-cualquier ubicación arbitraria en el área x e y. También tener en cuenta que 
-pueden probar la localización de una posición (x, y, h) en la que un dron 
-podría estar. 
+
+Nos piden que el programa en esta primera etapa permita, ingresar los valores de de x,y,z y permita calcular las distancia e informar el resultado. El programa termina cuando todos los valores son -1. 
+
+Por lo tanto, necesitan poder calcular diferentes valores, para probar cualquier ubicación arbitraria en el área x e y. También tener en cuenta que 
+pueden probar la localización de una posición (x, y, h) en la que un dron podría estar. 
+
 Una vez que tiene el algoritmo, codificarlo en Python. 
 """
 
+def ejercicio6():
+    print("ingrese coordenadas de dos puntos en el espacio (x, y, z)")
+    print("para terminar, ingrese (-1) en x1, y1 y z1")
 
+    x1 = float(input("x1: "))
+    y1 = float(input("y1: "))
+    z1 = float(input("z1: "))
+
+    while not (x1 == -1 and y1 == -1 and z1 == -1):
+        x2 = float(input("x2: "))
+        y2 = float(input("y2: "))
+        z2 = float(input("z2: "))
+
+        distancia = ((x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2) ** 0.5
+
+        print(f"La distancia entre los puntos es: {distancia:.2f}")
+
+        x1 = float(input("x1: "))
+        y1 = float(input("y1: "))
+        z1 = float(input("z1: "))
+
+#descomentar para probar el ejercicio 6
+#ejercicio6()
 
 """
-7)  Realizar un algoritmo que permite generar anagramas. El usuario ingresa
-un conjunto de letras y con su longitud debería generar una cantidad finita de
-combinaciones compuesta por las letras que componen la palabra ingresada.
-Al finalizar, debe imprimir la cantidad de anagramas posible y el total
-generado.
+7)  Realizar un algoritmo que permite generar anagramas. El usuario ingresa un conjunto de letras y con su longitud debería generar una cantidad finita de combinaciones compuesta por las letras que componen la palabra ingresada.
+Al finalizar, debe imprimir la cantidad de anagramas posible y el totalgenerado.
+
 Nota: para poder realizarlo es necesario utilizar el concepto de factorial.
+
 Una vez que tiene el algoritmo, codificarlo en Python.
 Fuente:  https://es.wikipedia.org/wiki/Anagrama
+
 Explicar si es posible implementar dicha solución con las limitaciones del TP. y 
 ¿cuál cree que es el problema al cual se enfrenta? 
+
 """
+
+def ejercicio7():
+    palabra = input("ingrese una palabra: ").strip()
+
+    while palabra == "":
+        palabra = input("Error. ingrese una palabra válida: ").strip()
+
+    factorial = 1
+    i = 1
+    while i <= len(palabra):
+        factorial *= i
+        i += 1
+
+    print(f"\nCantidad teorica maxima de combinaciones: {factorial}")
+
+    def generarAnagramas(prefijo, resto):
+        if len(resto) == 0:
+            return [prefijo]
+        resultado = []
+        i = 0
+        while i < len(resto):
+            nuevoPrefijo = prefijo + resto[i]
+            nuevoResto = resto[:i] + resto[i + 1:]
+            resultado += generarAnagramas(nuevoPrefijo, nuevoResto)
+            i += 1
+        return resultado
+
+    anagramas = generarAnagramas("", palabra)
+    anagramasUnicos = list(set(anagramas))
+
+    print("\nAnagramas generados:")
+    for anagrama in anagramasUnicos:
+        print(anagrama, end=" - ")
+    print(f"\nTotal generado: {len(anagramasUnicos)}")
+
+#descomentar para probar el ejercicio 7
+#ejercicio7()
 
 """
 8)  
-Eres responsable de digitalizar los registros manuales de un pequeño 
-comercio. Debes crear un script en Python que permita al usuario ingresar los 
-detalles de varios tickets de compra uno por uno. El sistema debe continuar 
-solicitando datos hasta que el usuario ingrese la palabra clave terminado en 
-lugar de un ID de ticket. 
-Entrada de datos, solicitar repetidamente: 
-●     ID del Ticket (debe ser único). 
-●     Monto total de la compra (debe ser un número positivo). 
-●     Categoría del producto (ej: "Alimentos", "Electrónica", "Ropa"). 
-La condición de interrumpirse es cuando el usuario escriba terminado en el 
-campo del ID.  
-Validación Básica:  Si el monto es negativo o no numérico, mostrar un error y 
-pedirlo nuevamente sin avanzar al siguiente ticket. 
-Al finalizar, imprimir un resumen con:  El monto total acumulado de todas las 
-compras. 
-Una vez que tiene el algoritmo, codificarlo en Python. 
+Eres responsable de digitalizar los registros manuales de un pequeño comercio. Debes crear un script en Python que permita al usuario ingresar los detalles de varios tickets de compra uno por uno. El sistema debe continuar solicitando datos hasta que el usuario ingrese la palabra clave terminado en lugar de un ID de ticket.
+Entrada de datos, solicitar repetidamente:
+    ● ID del Ticket (debe ser único).
+    ● Monto total de la compra (debe ser un número positivo).
+    ● Categoría del producto (ej: "Alimentos", "Electrónica", "Ropa").
+La condición de interrumpirse es cuando el usuario escriba terminado en el campo del ID.
+
+Validación Básica:  Si el monto es negativo o no numérico, mostrar un error y pedirlo nuevamente sin avanzar al siguiente ticket.
+Al finalizar, imprimir un resumen con:  El monto total acumulado de todas las compras.
+Una vez que tiene el algoritmo, codificarlo en Python.
 """
 
+def ejercicio8():
+    idTicket = input("Ingrese ID del ticket o 'terminado' para finalizar: ").strip()
+    totalAcumulado = 0
+
+    while idTicket.lower() != "terminado":
+        montoValido = False
+        while not montoValido:
+            montoTexto = input("Ingrese el monto total de la compra: ").strip()
+
+            if montoTexto.replace(".", "", 1).isdigit():
+                monto = float(montoTexto)
+                if monto > 0:
+                    montoValido = True
+                else:
+                    print("Error. El monto debe ser un numero positivo.")
+            else:
+                print("Error. Debe ingresar un numero valido.")
+
+        input("Ingrese la categoria del producto: ").strip()
+        totalAcumulado += monto
+        idTicket = input("\nIngrese ID del ticket (o 'terminado' para finalizar): ").strip()
+
+    print(f"\nEl monto total acumulado de todas las compras es: {totalAcumulado:.2f}")
+
+#descomentar para probar el ejercicio 8
+#ejercicio8()
 
 """
 9)  
-En una compañía que se dedica a la gestión de portfolios de inversiones están 
-realizando una actualización de sus sistemas y necesita generar lotes de 
-datos para realizar pruebas controladas de testing y pre-producción para 
-validar la nueva versión de un sistema de reportes de baja latencia.  Por lo 
-tanto es necesario poder generar un algoritmo que permita tomar los datos 
-de los stock price y generar un reporte con el total del precio del stock, stock 
-name, el date y el precio más alto y más bajo del día. Dicho reporte está 
-ordenado por nombre de stock name y fecha. 
-Un registro de stock contiene: - name. - default_prize. - default_high. - default_low. - date. - id. 
-El orden de todos los registros es name y date. Por lo tanto, para una misma 
-fecha pueden existir varios stock prize. Se pide: 
+En una compañía que se dedica a la gestión de portfolios de inversiones están realizando una actualización de sus sistemas y necesita generar lotes de datos para realizar pruebas controladas de testing y pre-producción para validar la nueva versión de un sistema de reportes de baja latencia.  
+Por lo tanto es necesario poder generar un algoritmo que permita tomar los datos de los stock price y generar un reporte con el total del precio del stock, stock name, el date y el precio más alto y más bajo del día. Dicho reporte está ordenado por nombre de stock name y fecha. 
+
+Un registro de stock contiene: 
+    - name
+    - default_prize
+    - default_high
+    - default_low
+    - date
+    - id
+
+El orden de todos los registros es name y date. Por lo tanto, para una misma fecha pueden existir varios stock prize. 
+
+Se pide:
 Generar un reporte que contenta: 
-el nombre + la fecha + el máximo del stock prize del día + el mínimo del stock 
-prize del día + el total price acumulado. 
-Ejemplo de un listado: 
-FB, default_prize=75.00, default_high=75.03, default_low=74.90,2023-12-31 
-FB, default_prize=73.00, default_high=77.05, default_low=71.20,2023-12-30 
-FB, default_prize=68.00, default_high=71.15, default_low=69.00,2023-12-30 
-IBM, default_prize=55.00, default_high=60.10, default_low=50.00,2023-12-30 
-El reporte es: 
+
+el nombre + la fecha + el máximo del stock prize del día + el mínimo del stock prize del día + el total price acumulado.
+
+Ejemplo de un listado:
+
+FB, default_prize=75.00, default_high=75.03, default_low=74.90,2023-12-31
+FB, default_prize=73.00, default_high=77.05, default_low=71.20,2023-12-30
+FB, default_prize=68.00, default_high=71.15, default_low=69.00,2023-12-30
+IBM, default_prize=55.00, default_high=60.10, default_low=50.00,2023-12-30
+
+El reporte es:
+
 FB del 2023-12-31 maximo: 75.03 y mínimo: 74.90 total: 75.00 
 FB del 2023-12-30 máximo: 77.03 y mínimo: 69.00 total: 141.0 
 IBM del 2023-12-30 máximo: 60.10 y mínimo: 50.00 total: 55.0 
-Se debe recorrer el listado una sola vez para generar el reporte que nos solicitan. 
-Para poder elaborar el algoritmo, la empresa ya nos provee acceso a las API 
-para obtener los registros.  Dicha API es posible utilizarla de la siguiente 
-manera en Python: 
+
+Se debe recorrer el listado una sola vez para generar el reporte que nos solicitan.
+
+Para poder elaborar el algoritmo, la empresa ya nos provee acceso a las API para obtener los registros.  Dicha API es posible utilizarla de la siguiente manera en Python:
+
 from apivalo import get_registros, next_record 
-get_registros() => retorna una colección de registros 
+get_registros() => retorna una colección de registros
+
 next_record(collection) => recibe una colección de registros y retorna un registro. 
 En el caso que la colección no tenga un próximo registro a recorrer retorna False. 
+
 Datos del registro que retorna: 
+
 record.name 
 record.default_prize 
 record.default_high 
 record.default_low 
 record.date 
+
 Cada vez que se invoca a next_record, retorna el actual y se posiciona en el 
 próximo. 
+
 En este ejercicio: no es posible utilizar diccionarios u otras funciones o 
 librerías 3 party para resolver el ejercicio. Solo debe ser resuelto utilizando las 
 abstracciones y estrategias de control vistas. 
-Se evaluará: - - - - - - - - - 
-Inicialización de variables. 
-Corte de control. 
-Uso de máximos  y mínimos. 
-Sentencias de control. 
-Uso de bucle. Debe comentar cual es su elección y porque. 
-Abstracción y estrategia del algoritmo. Capacidad de manejar la 
-complejidad en la resolución del problema. 
-Utilizar los recursos que se les da. 
-Que cumpla con lo pedido del reporte. 
-Todo debe ser resuelto en un solo recorrido. 
-- - 
-En el caso del reporte de se debe recorrer las estructuras una sola vez. 
-Justificar sus elecciones. 
+
+Se evaluará: 
+- Inicialización de variables. 
+- Corte de control. 
+- Uso de máximos  y mínimos. 
+- Sentencias de control. 
+- Uso de bucle. Debe comentar cual es su elección y porque. 
+- Abstracción y estrategia del algoritmo. Capacidad de manejar la complejidad en la resolución del problema. 
+- Utilizar los recursos que se les da. 
+- Que cumpla con lo pedido del reporte. 
+- Todo debe ser resuelto en un solo recorrido. 
+- En el caso del reporte de se debe recorrer las estructuras una sola vez. 
+- Justificar sus elecciones.
+
 Una vez que tiene el algoritmo, codificarlo en Python. 
+
 Nota a tener en cuenta: 
-El uso de la IA es válido como asistente en el proceso de investigación; 
-sin embargo, se espera que demuestren su propia comprensión 
-mediante la revisión y el análisis profundo del contenido que ustedes 
-vayan redactando y asimilando.  
-Asimismo, es indispensable adaptar cualquier información a las normas 
-APA vigentes, asegurando que las referencias sean verificables y estén 
-correctamente formateadas. 
+
+El uso de la IA es válido como asistente en el proceso de investigación; sin embargo, se espera que demuestren su propia comprensión mediante la revisión y el análisis profundo del contenido que ustedes vayan redactando y asimilando.  
+
+Asimismo, es indispensable adaptar cualquier información a las normas APA vigentes, asegurando que las referencias sean verificables y estén correctamente formateadas.
+
 Se tendrá en cuenta también: 
 ●  Coherencia y estructura de lo que entregue. 
 ●  Originalidad de la redacción,  """
+
+class Record:
+    def __init__(self, name, prize, high, low, date):
+        self.name = name
+        self.defaultPrize = prize
+        self.defaultHigh = high
+        self.defaultLow = low
+        self.date = date
+
+    @staticmethod
+    def getRegistros():
+        return [
+            Record("FB", 75.00, 75.03, 74.90, "2023-12-31"),
+            Record("FB", 73.00, 77.05, 71.20, "2023-12-30"),
+            Record("FB", 68.00, 71.15, 69.00, "2023-12-30"),
+            Record("IBM", 55.00, 60.10, 50.00, "2023-12-30")
+        ]
+
+    @staticmethod
+    def nextRecord(collection):
+        if len(collection) > 0:
+            return collection.pop(0)
+        return None
+
+def ejercicio9():
+
+    registros = Record.getRegistros()
+    record = Record.nextRecord(registros)
+    
+    if record is None:
+        print("No hay registros para procesar.")
+    else:
+        nombreActual = record.name
+        fechaActual = record.date
+        maximoDia = record.defaultHigh
+        minimoDia = record.defaultLow
+        totalPrice = record.defaultPrize
+
+        record = Record.nextRecord(registros)
+
+        while record is not None:
+            if record.name == nombreActual and record.date == fechaActual:
+                totalPrice += record.defaultPrize
+                if record.defaultHigh > maximoDia:
+                    maximoDia = record.defaultHigh
+                if record.defaultLow < minimoDia:
+                    minimoDia = record.defaultLow
+            else:
+                print(f"{nombreActual} del {fechaActual} máximo: {maximoDia} y mínimo: {minimoDia} total: {totalPrice}")
+                nombreActual = record.name
+                fechaActual = record.date
+                maximoDia = record.defaultHigh
+                minimoDia = record.defaultLow
+                totalPrice = record.defaultPrize
+            record = Record.nextRecord(registros)
+        print(f"{nombreActual} del {fechaActual} máximo: {maximoDia} y mínimo: {minimoDia} total: {totalPrice}")
+
+# descomentar para probar el ejercicio 9
+#ejercicio9()
