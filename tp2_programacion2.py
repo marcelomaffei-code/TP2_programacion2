@@ -26,45 +26,41 @@ Al finalizar el ingreso de datos (cuando se ingrese FIN), debe informar:
 Una vez que tiene el algoritmo, codificarlo en Python. 
  """
 
-def ejercicio1():
-    totalProductosVendidos = 0
-    montoTotal = 0
-    transaccionesCont = 0
-    productoMasVendido = ""
-    maxCantidadVendida = 0
+totalProductosVendidos = 0
+montoTotal = 0
+transaccionesCont = 0
+productoMasVendido = ""
+maxCantidadVendida = 0
+
+codigoDeProducto = input("Ingrese código de producto (o 'FIN' para terminar): ")
+
+while codigoDeProducto != "FIN":
+        
+    cantidadVendida = int(input("Cantidad vendida: "))
+    while cantidadVendida <= 0:
+        cantidadVendida = int(input("Error. Ingrese cantidad positiva: "))
+
+    precioUnitario = float(input("Precio unitario: "))
+    while precioUnitario <= 0:
+        precioUnitario = float(input("Error. Ingrese precio positivo: "))
+
+    totalProductosVendidos += cantidadVendida
+    montoTotal += cantidadVendida * precioUnitario
+    transaccionesCont += 1
+
+    if cantidadVendida > maxCantidadVendida:
+        maxCantidadVendida = cantidadVendida
+        productoMasVendido = codigoDeProducto
 
     codigoDeProducto = input("Ingrese código de producto (o 'FIN' para terminar): ")
 
-    while codigoDeProducto != "FIN":
-        
-        cantidadVendida = int(input("Cantidad vendida: "))
-        while cantidadVendida <= 0:
-            cantidadVendida = int(input("Error. Ingrese cantidad positiva: "))
-
-        precioUnitario = float(input("Precio unitario: "))
-        while precioUnitario <= 0:
-            precioUnitario = float(input("Error. Ingrese precio positivo: "))
-
-        totalProductosVendidos += cantidadVendida
-        montoTotal += cantidadVendida * precioUnitario
-        transaccionesCont += 1
-
-        if cantidadVendida > maxCantidadVendida:
-            maxCantidadVendida = cantidadVendida
-            productoMasVendido = codigoDeProducto
-
-        codigoDeProducto = input("Ingrese código de producto (o 'FIN' para terminar): ")
-
-    print("Total productos:", totalProductosVendidos)
-    print("Total dinero:", montoTotal)
-    print("Transacciones:", transaccionesCont)
-    if transaccionesCont == 0:
-        print("No se registraron ventas")
-    else:
-        print("Producto más vendido:", productoMasVendido)
-
-#descomentar para probar el ejercicio 1
-#ejercicio1()
+print("Total productos:", totalProductosVendidos)
+print("Total dinero:", montoTotal)
+print("Transacciones:", transaccionesCont)
+if transaccionesCont == 0:
+    print("No se registraron ventas")
+else:
+    print("Producto más vendido:", productoMasVendido)
 
 """ 
 2) Realizar un algoritmo que permita saber si una palabra que pertenece a un oración ingresada es un palíndromo o no, 
@@ -73,33 +69,32 @@ una vez que la cadena ingresada es un #. Al finalizar, debe informar la cantidad
 Una vez que tiene el algoritmo, codificarlo en Python. 
 """
 
-def ejercicio2():
+oracion = input("Ingrese una oracion o # para terminar: ")
+cantidadPalindromos = 0
+
+while oracion != "#":
+    palabras = oracion.split()
+
+    for palabra in palabras:
+        palabra = palabra.lower().strip(".,;:!?")
+
+        if palabra != "":
+            i = 0
+            j = len(palabra) - 1
+            esPalindromo = True
+
+            while i < j and esPalindromo:
+                if palabra[i] != palabra[j]:
+                    esPalindromo = False
+                i += 1
+                j -= 1
+
+            if esPalindromo:
+                print("Palabra palindromo:", palabra)
+                cantidadPalindromos += 1
+
     oracion = input("Ingrese una oracion o # para terminar: ")
-    cantidadDePalindromos = 0
-
-    while oracion != "#":
-        palabras = oracion.split()
-        for palabra in palabras:
-            palabra = palabra.lower().strip(".,;:!?")
-            if palabra != "" and esPalindromo(palabra):
-                print(f"La palabra '{palabra}' es palindromo")
-                cantidadDePalindromos += 1
-        oracion = input("Ingrese una oracion o # para terminar: ")
-    print("Cantidad de palindromos encontrados:", cantidadDePalindromos)
-
-def esPalindromo(palabra):
-    i = 0
-    j = len(palabra) - 1
-
-    while i < j:
-        if palabra[i] != palabra[j]:
-            return False
-        i += 1
-        j -= 1
-    return True
-
-#descomentar para probar el ejercicio 2
-#ejercicio2()
+print("Cantidad total de palindromos:", cantidadPalindromos)
 
 """ ------------------------------------------------------------------------
 3) 
@@ -109,35 +104,30 @@ Teniendo en cuenta que una oración inicia con una letra A-Z|a-z y termina con "
 Al finalizar, debe informar la cantidad de veces que aparece dicha palabra. Una vez que tiene el algoritmo, codificarlo en Python. 
 """
 
-def ejercicio3():
-    palabraBuscada = input("Ingrese la palabra a buscar: ").strip().lower()
+palabraBuscada = input("Ingrese la palabra a buscar: ").strip().lower()
     
-    while not palabraBuscada:
-        palabraBuscada = input("Error. Ingrese una palabra válida: ").strip().lower()
+while not palabraBuscada:
+    palabraBuscada = input("Error. Ingrese una palabra válida: ").strip().lower()
 
-    total = 0
-    oracion = input("Ingrese una oración o '#' para terminar: ")
+total = 0
+oracion = input("Ingrese una oración o '#' para terminar: ")
 
-    while oracion.strip() != "#":
-        oracion = oracion.strip()
+while oracion.strip() != "#":
+    oracion = oracion.strip()
 
-        if oracion and oracion[0].isalpha() and oracion.endswith("."):
-            oracion_limpia = oracion.rstrip(".")
-            palabras = oracion_limpia.split()
+    if oracion and oracion[0].isalpha() and oracion.endswith("."):
+        oracion_limpia = oracion.rstrip(".")
+        palabras = oracion_limpia.split()
 
-            for palabra in palabras:
-                palabra = palabra.lower().strip(".,;:!?¡¿\"'")
-                if palabra == palabraBuscada:
+        for palabra in palabras:
+            palabra = palabra.lower().strip(".,;:!?¡¿\"'")
+            if palabra == palabraBuscada:
                     total += 1
-        else:
-            print("Error. La oración debe iniciar con una letra y terminar con un punto.")
+    else:
+        print("Error. La oración debe iniciar con una letra y terminar con un punto.")
 
-        oracion = input("Ingrese una oración (o '#' para terminar): ")
-
-    print(f"\nLa palabra '{palabraBuscada}' aparece {total} veces en total.")
-
-#descomentar para probar el ejercicio 3
-#ejercicio3()
+    oracion = input("Ingrese una oración (o '#' para terminar): ")
+print(f"\nLa palabra '{palabraBuscada}' aparece {total} veces en total.")
 
 """
 4) Realizar un algoritmo que permite adivinar la palabra ingresada a partir de un conjunto de caracteres disponibles. Una vez que adivina la palabra 
@@ -147,8 +137,7 @@ Por ejemplo:
 
     El usuario ingresa la palabra = claseDeUdemm
 
-    El algoritmo debe estar procesando las combinaciones con los caracteres 
-    disponibles hasta poder adivinar la palabra ingresada. La restricción es
+    El algoritmo debe estar procesando las combinaciones con los caracteres disponibles hasta poder adivinar la palabra ingresada. La restricción es
     que no es posible recorrer la palabra ingresada solo poder utilizar el operador de igualdad.
 
     nota: para poder tomar tiempo puede usar el módulo time.
@@ -159,54 +148,49 @@ Explicar si es posible implementar dicha solución con las limitaciones del TP. 
 ¿cuál cree que es el problema al cual se enfrenta?
 """
 
-def ejercicio4():
-    import time
-    
-    palabraAdivinar = input("Ingrese la palabra a adivinar: ")
-    caracteres = "abcdefghijklmnopqrstuvwxyz"
+import time    
+palabraAdivinar = input("Ingrese la palabra a adivinar: ")
+caracteres = "abcdefghijklmnopqrstuvwxyz"
+intento = ""
+encontrado = False
+inicioTiempo = time.time()
+
+indices = [0] * 20
+longitudActual = 1
+
+print("Procesando... por favor espere.")
+while not encontrado:
     intento = ""
-    encontrado = False
-    inicioTiempo = time.time()
-
-    indices = [0] * 20
-    longitudActual = 1
-
-    print("Procesando... por favor espere.")
-    while not encontrado:
-        intento = ""
-        for i in range(longitudActual):
-            intento += caracteres[indices[i]]
-        print(intento)
-
-        if intento == palabraAdivinar:
-            encontrado = True
-        else:
-            pos = 0
-            incrementar = True
-            while incrementar and pos < longitudActual:
-                indices[pos] += 1
-                if indices[pos] < len(caracteres):
-                    incrementar = False
-                else:
-                    indices[pos] = 0
-                    pos += 1
-            
-            if incrementar:
-                longitudActual += 1
-                if longitudActual > len(palabraAdivinar):
-                    encontrado = True 
-
-    finTiempo = time.time()
-    tiempo_total = finTiempo - inicioTiempo
+    for i in range(longitudActual):
+        intento += caracteres[indices[i]]
+    print(intento)
 
     if intento == palabraAdivinar:
-        print(f"¡Palabra adivinada!: {intento}")
-        print(f"Tiempo tardado: {tiempo_total:.2f} segundos.")
+        encontrado = True
     else:
-        print("No se pudo encontrar la palabra con los caracteres disponibles.")
+        pos = 0
+        incrementar = True
+        while incrementar and pos < longitudActual:
+            indices[pos] += 1
+            if indices[pos] < len(caracteres):
+                incrementar = False
+            else:
+                indices[pos] = 0
+                pos += 1
+            
+        if incrementar:
+            longitudActual += 1
+            if longitudActual > len(palabraAdivinar):
+                encontrado = True 
 
-#descomentar para probar el ejercicio 4
-#ejercicio4()
+finTiempo = time.time()
+tiempo_total = finTiempo - inicioTiempo
+
+if intento == palabraAdivinar:
+    print(f"¡Palabra adivinada!: {intento}")
+    print(f"Tiempo tardado: {tiempo_total:.2f} segundos.")
+else:
+    print("No se pudo encontrar la palabra con los caracteres disponibles.")
 
 """
 5) Realizar un algoritmo que permita saber de cuántas maneras diferentes se podría combinar una cantidad de lanas de un juego de ocho. 
@@ -223,22 +207,18 @@ El factorial de cero es = 1
 Una vez que tiene el algoritmo, codificarlo en Python.
 """
 
-def ejercicio5():
-    n = int(input("ingrese la cantidad de fichas: "))
+n = int(input("ingrese la cantidad de fichas: "))
 
-    while n < 0:
-        n = int(input("Error!!! Ingrese un numero valido >= 0: "))
+while n < 0:
+    n = int(input("Error!!! Ingrese un numero valido >= 0: "))
 
-    factorial = 1
+factorial = 1
 
-    for i in range(1, n + 1):
-        factorial *= i
+for i in range(1, n + 1):
+    factorial *= i
 
-    print(f"El factorial de {n} es: {factorial}")
-    print(f"Cantidad de combinaciones posibles: {factorial}")
-
-#descomentar para probar el ejercicio 5
-#ejercicio5()
+print(f"El factorial de {n} es: {factorial}")
+print(f"Cantidad de combinaciones posibles: {factorial}")
 
 """
 6) En una empresa que se encuentra estudiando una mejor prestación de vuelo de drones, está trabajando en un estudio para determinar el posicionamiento óptimo de drones estático y dinámico en un área 
@@ -257,29 +237,25 @@ pueden probar la localización de una posición (x, y, h) en la que un dron podr
 Una vez que tiene el algoritmo, codificarlo en Python. 
 """
 
-def ejercicio6():
-    print("ingrese coordenadas de dos puntos en el espacio (x, y, z)")
-    print("para terminar, ingrese (-1) en x1, y1 y z1")
+print("ingrese coordenadas de dos puntos en el espacio (x, y, z)")
+print("para terminar, ingrese (-1) en x1, y1 y z1")
+
+x1 = float(input("x1: "))
+y1 = float(input("y1: "))
+z1 = float(input("z1: "))
+
+while not (x1 == -1 and y1 == -1 and z1 == -1):
+    x2 = float(input("x2: "))
+    y2 = float(input("y2: "))
+    z2 = float(input("z2: "))
+
+    distancia = ((x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2) ** 0.5
+
+    print(f"La distancia entre los puntos es: {distancia:.2f}")
 
     x1 = float(input("x1: "))
     y1 = float(input("y1: "))
     z1 = float(input("z1: "))
-
-    while not (x1 == -1 and y1 == -1 and z1 == -1):
-        x2 = float(input("x2: "))
-        y2 = float(input("y2: "))
-        z2 = float(input("z2: "))
-
-        distancia = ((x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2) ** 0.5
-
-        print(f"La distancia entre los puntos es: {distancia:.2f}")
-
-        x1 = float(input("x1: "))
-        y1 = float(input("y1: "))
-        z1 = float(input("z1: "))
-
-#descomentar para probar el ejercicio 6
-#ejercicio6()
 
 """
 7)  Realizar un algoritmo que permite generar anagramas. El usuario ingresa un conjunto de letras y con su longitud debería generar una cantidad finita de combinaciones compuesta por las letras que componen la palabra ingresada.
@@ -295,42 +271,23 @@ Explicar si es posible implementar dicha solución con las limitaciones del TP. 
 
 """
 
-def ejercicio7():
-    palabra = input("ingrese una palabra: ").strip()
+palabra = input("Ingrese una palabra: ").strip()
 
-    while palabra == "":
-        palabra = input("Error. ingrese una palabra válida: ").strip()
+while palabra == "":
+    palabra = input("Error. Ingrese una palabra válida: ").strip()
 
-    factorial = 1
-    i = 1
-    while i <= len(palabra):
-        factorial *= i
-        i += 1
+n = len(palabra)
 
-    print(f"\nCantidad teorica maxima de combinaciones: {factorial}")
+# iterativo
+factorial = 1
+i = 1
+while i <= n:
+    factorial *= i
+    i += 1
 
-    def generarAnagramas(prefijo, resto):
-        if len(resto) == 0:
-            return [prefijo]
-        resultado = []
-        i = 0
-        while i < len(resto):
-            nuevoPrefijo = prefijo + resto[i]
-            nuevoResto = resto[:i] + resto[i + 1:]
-            resultado += generarAnagramas(nuevoPrefijo, nuevoResto)
-            i += 1
-        return resultado
-
-    anagramas = generarAnagramas("", palabra)
-    anagramasUnicos = list(set(anagramas))
-
-    print("\nAnagramas generados:")
-    for anagrama in anagramasUnicos:
-        print(anagrama, end=" - ")
-    print(f"\nTotal generado: {len(anagramasUnicos)}")
-
-#descomentar para probar el ejercicio 7
-#ejercicio7()
+print("Cantidad máxima de combinaciones:", factorial)
+#No es viable generar todos los anagramas con las restricciones del TP.
+#El problema es de complejidad factorial (n!), crece muy rápido.
 
 """
 8)  
@@ -346,32 +303,28 @@ Al finalizar, imprimir un resumen con:  El monto total acumulado de todas las co
 Una vez que tiene el algoritmo, codificarlo en Python.
 """
 
-def ejercicio8():
-    idTicket = input("Ingrese ID del ticket o 'terminado' para finalizar: ").strip()
-    totalAcumulado = 0
+total = 0
+idTicket = input("Ingrese ID del ticket o 'terminado': ").strip()
 
-    while idTicket.lower() != "terminado":
-        montoValido = False
-        while not montoValido:
-            montoTexto = input("Ingrese el monto total de la compra: ").strip()
+while idTicket.lower() != "terminado":
 
-            if montoTexto.replace(".", "", 1).isdigit():
-                monto = float(montoTexto)
-                if monto > 0:
-                    montoValido = True
-                else:
-                    print("Error. El monto debe ser un numero positivo.")
+    montoValido = False
+    while not montoValido:
+        montoTexto = input("Ingrese monto: ").strip()
+
+        if montoTexto.replace(".", "", 1).isdigit():
+            monto = float(montoTexto)
+            if monto > 0:
+                montoValido = True
             else:
-                print("Error. Debe ingresar un numero valido.")
+                print("Monto debe ser positivo")
+        else:
+            print("Debe ingresar un número válido")
 
-        input("Ingrese la categoria del producto: ").strip()
-        totalAcumulado += monto
-        idTicket = input("\nIngrese ID del ticket (o 'terminado' para finalizar): ").strip()
-
-    print(f"\nEl monto total acumulado de todas las compras es: {totalAcumulado:.2f}")
-
-#descomentar para probar el ejercicio 8
-#ejercicio8()
+    categoria = input("Ingrese categoría: ")
+    total += monto
+    idTicket = input("Ingrese ID del ticket o 'terminado': ").strip()
+print("Total acumulado:", total)
 
 """
 9)  
@@ -456,61 +409,40 @@ Se tendrá en cuenta también:
 ●  Coherencia y estructura de lo que entregue. 
 ●  Originalidad de la redacción,  """
 
-class Record:
-    def __init__(self, name, prize, high, low, date):
-        self.name = name
-        self.defaultPrize = prize
-        self.defaultHigh = high
-        self.defaultLow = low
-        self.date = date
+registros = Record.getRegistros()
+record = Record.nextRecord(registros)
 
-    @staticmethod
-    def getRegistros():
-        return [
-            Record("FB", 75.00, 75.03, 74.90, "2023-12-31"),
-            Record("FB", 73.00, 77.05, 71.20, "2023-12-30"),
-            Record("FB", 68.00, 71.15, 69.00, "2023-12-30"),
-            Record("IBM", 55.00, 60.10, 50.00, "2023-12-30")
-        ]
+if record is None:
+    print("No hay datos")
+else:
+    nombreActual = record.name
+    fechaActual = record.date
 
-    @staticmethod
-    def nextRecord(collection):
-        if len(collection) > 0:
-            return collection.pop(0)
-        return None
-
-def ejercicio9():
-
-    registros = Record.getRegistros()
+    maximo = record.defaultHigh
+    minimo = record.defaultLow
+    total = record.defaultPrize
     record = Record.nextRecord(registros)
-    
-    if record is None:
-        print("No hay registros para procesar.")
-    else:
-        nombreActual = record.name
-        fechaActual = record.date
-        maximoDia = record.defaultHigh
-        minimoDia = record.defaultLow
-        totalPrice = record.defaultPrize
+
+    while record is not None:
+
+        if record.name == nombreActual and record.date == fechaActual:
+            total += record.defaultPrize
+
+            if record.defaultHigh > maximo:
+                maximo = record.defaultHigh
+
+            if record.defaultLow < minimo:
+                minimo = record.defaultLow
+
+        else:
+            print(nombreActual, fechaActual, "max:", maximo, "min:", minimo, "total:", total)
+
+            nombreActual = record.name
+            fechaActual = record.date
+            maximo = record.defaultHigh
+            minimo = record.defaultLow
+            total = record.defaultPrize
 
         record = Record.nextRecord(registros)
 
-        while record is not None:
-            if record.name == nombreActual and record.date == fechaActual:
-                totalPrice += record.defaultPrize
-                if record.defaultHigh > maximoDia:
-                    maximoDia = record.defaultHigh
-                if record.defaultLow < minimoDia:
-                    minimoDia = record.defaultLow
-            else:
-                print(f"{nombreActual} del {fechaActual} máximo: {maximoDia} y mínimo: {minimoDia} total: {totalPrice}")
-                nombreActual = record.name
-                fechaActual = record.date
-                maximoDia = record.defaultHigh
-                minimoDia = record.defaultLow
-                totalPrice = record.defaultPrize
-            record = Record.nextRecord(registros)
-        print(f"{nombreActual} del {fechaActual} máximo: {maximoDia} y mínimo: {minimoDia} total: {totalPrice}")
-
-# descomentar para probar el ejercicio 9
-#ejercicio9()
+    print(nombreActual, fechaActual, "max:", maximo, "min:", minimo, "total:", total)
