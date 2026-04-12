@@ -423,7 +423,7 @@ else:
     total = record.defaultPrize
     record = Record.nextRecord(registros)
 
-    while record is not None:
+    while record is not False:
 
         if record.name == nombreActual and record.date == fechaActual:
             total += record.defaultPrize
